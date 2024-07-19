@@ -1,0 +1,110 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Marksheet Builder</title>
+    <style>
+      table {
+        border-collapse: collapse;
+        width: 50%;
+      }
+      th,
+      td {
+        border: 1px solid black;
+        padding: 8px;
+        text-align: left;
+      }
+      th {
+        background-color: #f2f2f2;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Marksheet Builder</h1>
+    <script>
+      var collageName = prompt("Enter your collage or school Name");
+      const Name = prompt("Enter your name:");
+      const enrolment_No = parseInt(prompt("Enter your enrolment number:"));
+      const branch = prompt("Enter your Branch");
+      const semester = parseInt(prompt("Enter your semester"));
+      var totalSubject = parseFloat(prompt("Enter the total number of subjects:"));
+      var totalMarks = 0;
+      var backlog = 0;
+      var overallFail = false;
+       document.write("<table>");
+      document.write("<tr><th>collage//school Name</th><td>" + collageName + "</td></tr>");
+      document.write("<tr><th>Student Name</th><td>" + Name + "</td></tr>");
+      document.write("<tr><th>Enrolment No</th><td>" + enrolment_No + "</td></tr>");
+      document.write("<tr><th>Branch</th><td>" + branch + "</td></tr>");
+      document.write("<tr><th>Semester</th><td>" + semester + "</td></tr>");
+      document.write("<tr><th>Total subjects</th><td>" + totalSubject + "</td></tr>");
+       for (let index = 0; index <totalSubject; index++) {
+        var subjectName = prompt("Enter the name of subject" + (index + 1) + ":");
+        var marks;
+         do {
+          marks = prompt("Enter the marks for " + subjectName + ":");
+          if (marks === null) {
+            break;
+          }
+          marks = parseFloat(marks);
+          if (isNaN(marks) || marks < 0 || marks > 100) {
+            alert("Please enter a valid number between 0 and 100.");
+          }
+        } while ((isNaN(marks) || marks < 0 || marks > 100));
+         if (marks === "absent") {
+          marks = 0;
+        }
+         var grade = "";
+        if (marks >= 80) {
+          grade = "O";
+        } else if (marks >= 75) {
+          grade = "A";
+        } else if (marks >= 70) {
+          grade = "B";
+        } else if (marks >= 65) {
+          grade = "C";
+        } else if (marks >= 50) {
+          grade = "D";
+        } else if (marks >= 45) {
+          grade = "E";
+        } else if (marks >= 34) {
+          grade = "P";
+        } else {
+          grade = "F";
+        }
+         if (marks < 33) {
+          backlog++;
+          overallFail = true;
+        }
+         totalMarks += marks;
+        document.write("<tr><th>" + subjectName + "</th><td>" + marks + " (" + grade + ")</td></tr>");
+      }
+       var result = overallFail ? "Fail" : "Pass";
+      document.write("<tr><th>Result</th><td>" + result + "</td></tr>");
+      document.write("<tr><th>Backlog</th><td>" + backlog + "</td></tr>");
+      document.write("<tr><th>Total</th><td>" + totalMarks + " / " + (totalSubject * 100) + "</td></tr>");
+       var percentage = (totalMarks / (totalSubject * 100)) * [100];
+      percentage = (percentage * 100) / 100;
+      percentage = percentage.toFixed(2);
+       document.write("<tr><th>Percentage</th><td>" + percentage + "%</td></tr>");
+       var finalGrade = "";
+      if (percentage >= 80) {
+        finalGrade = "O";
+      } else if (percentage >= 70) {
+        finalGrade = "A+";
+      } else if (percentage >= 60) {
+        finalGrade = "B";
+      } else if (percentage >= 50) {
+        finalGrade = "C";
+      } else if (percentage >= 40) {
+        finalGrade = "D";
+      } else if (percentage >= 33) {
+        finalGrade = "P";
+      } else {
+        finalGrade = "Fail";
+      }
+       document.write("<tr><th>Final Grade</th><td>" + finalGrade + "</td></tr>");
+      document.write("</table>");
+    </script>
+  </body>
+</html>
